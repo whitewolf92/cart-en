@@ -7,8 +7,6 @@ function ProductDetails(props) {
     const { productId } = useParams();
     const { loading, data: product } = useFetch(`https://fakestoreapi.com/products/${productId}`);
 
-    // Would add an Alert hook here to give feedback for adding to cart.
-
     if (loading) return <></>;
     if (!product.id) return <p>Oops! Product not found!</p>;
 
@@ -21,6 +19,8 @@ function ProductDetails(props) {
             items.push({ productId: product.id, quantity: 1 });
         }
         setCartItems(items);
+        // Would add an Alert hook here to give feedback for adding to cart.
+        alert('Item added to cart!');
     };
 
     return (
