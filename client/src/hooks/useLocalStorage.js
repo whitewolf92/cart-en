@@ -6,7 +6,6 @@ const useLocalStorage = (keyname, defaultValue) => {
     const setData = (value) => {
         localStorage.setItem(keyname, JSON.stringify(value));
         setStateData(JSON.parse(JSON.stringify(value)));
-        console.log('local data set');
     };
 
     useEffect(() => {
@@ -16,6 +15,7 @@ const useLocalStorage = (keyname, defaultValue) => {
             localStorage.setItem(keyname, JSON.stringify(defaultValue));
         }
         setStateData(tmpData);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [keyname]);
 
     return { data, setData };

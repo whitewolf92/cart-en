@@ -7,22 +7,26 @@ function ProductDetails(props) {
     const { productId } = useParams();
     const { loading, data: product } = useFetch(`https://fakestoreapi.com/products/${productId}`);
 
+    // Would add an Alert hook here to give feedback for adding to cart.
+
     if (loading) return <></>;
     if (!product.id) return <p>Oops! Product not found!</p>;
 
     const handleAddToCart = () => {
-        if (cartItems) cartItems.push(product.id);
-        cartItems = cartItems || [product.id];
-        console.log(cartItems);
-        setCartItems(cartItems);
+        let items = [...cartItems];
+        let item = items.find((v) => v.productId === product.id);
+        if (item) {
+            item.quantity += 1;
+        } else {
+            items.push({ productId: product.id, quantity: 1 });
+        }
+        setCartItems(items);
     };
-
-    console.log(cartItems);
 
     return (
         <div className="container mx-auto grid grid-cols-3 gap-4  mt-8">
             <div className="col-span-2">
-                <img className="object-contain h-80 w-full" src={product.image} alt="Product Image" />
+                <img className="object-contain h-80 w-full" src={product.image} alt={product.title} />
                 <div className="mt-8">
                     <h2 className="text-2xl">Description</h2>
                     <p className="mt-2">{product.description}</p>
@@ -30,8 +34,8 @@ function ProductDetails(props) {
             </div>
             <div>
                 <h1 className="text-2xl">{product.title}</h1>
-                <p className="mt-2 text-3xl text-yellow-600 font-semibold">${product.price.toFixed(2)}</p>
-                <button onClick={handleAddToCart} className="mt-8 bg-red-600 hover:bg-red-500 active:shadow-lg px-8 py-2 text-white text-lg font-semibold ">
+                <p className="mt-2 big-price">${product.price.toFixed(2)}</p>
+                <button onClick={handleAddToCart} className="btn mt-8">
                     Add to Cart
                 </button>
             </div>

@@ -9,8 +9,6 @@ import Cart from './pages/Cart';
 function App() {
     const { data: cartItems, setData: setCartItems } = useLocalStorage('cartItems', []);
 
-    console.log('cartItems', cartItems);
-
     return (
         <BrowserRouter>
             <Navbar cartItems={cartItems} />
@@ -22,7 +20,7 @@ function App() {
                     <ProductDetails cartItems={cartItems} setCartItems={setCartItems} />
                 </Route>
                 <Route path="/cart">
-                    <Cart />
+                    <Cart cartItems={cartItems} />
                 </Route>
             </Switch>
         </BrowserRouter>
