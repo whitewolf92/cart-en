@@ -15,8 +15,6 @@ function Cart(props) {
         // we fetch each product's data individually. This can be refactored if this becomes a
         // common case, but a better API response data would be a better solution.
         if (!itemMetaData) {
-            console.log('finding');
-            // let tmpItems = cartItems.slice(0);
             let tmpMetaData = [];
             let promises = [];
 
@@ -25,7 +23,6 @@ function Cart(props) {
                     fetch(`https://fakestoreapi.com/products/${v.productId}`).then(async (response) => {
                         let j = await response.json();
                         tmpMetaData.push({ productId: v.productId, title: j.title, price: j.price, image: j.image });
-                        // tmpItems[i] = { ...tmpItems[i], title: j.title, price: j.price, image: j.image };
                     })
                 );
             });
@@ -33,9 +30,7 @@ function Cart(props) {
             // Can choose to split the cart update for each promise, but we're simulating an ideal where
             // the cart information arrives in a single response.
             Promise.all(promises).then(() => {
-                console.log(tmpMetaData);
                 setItemMetaData(tmpMetaData);
-                // updateCartTotal();
             });
 
             return;
