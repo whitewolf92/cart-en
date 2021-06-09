@@ -5,7 +5,7 @@ const useLocalStorage = (keyname, defaultValue) => {
 
     const setData = (value) => {
         localStorage.setItem(keyname, JSON.stringify(value));
-        setStateData(JSON.parse(JSON.stringify(value)));
+        setStateData(value);
     };
 
     useEffect(() => {

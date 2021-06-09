@@ -20,7 +20,7 @@ function App() {
                     <ProductDetails cartItems={cartItems} setCartItems={setCartItems} />
                 </Route>
                 <Route path="/cart">
-                    <Cart cartItems={cartItems} />
+                    <Cart cartItems={cartItems} setCartItems={setCartItems} />
                 </Route>
             </Switch>
         </BrowserRouter>
