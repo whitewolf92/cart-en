@@ -1,15 +1,20 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect } from "react";
 
 const useLocalStorage = (keyname, defaultValue) => {
     const [data, setStateData] = useState();
 
-    const setData = (value) => {
+    const setData = value => {
         localStorage.setItem(keyname, JSON.stringify(value));
         setStateData(value);
     };
 
     useEffect(() => {
-        let tmpData = JSON.parse(localStorage.getItem(keyname));
+        let tmpData =
+            localStorage.getItem(keyname) === undefined ||
+            !localStorage.getItem(keyname)
+                ? null
+                : JSON.parse(localStorage.getItem(keyname));
+
         if (tmpData === null && defaultValue) {
             tmpData = defaultValue;
             localStorage.setItem(keyname, JSON.stringify(defaultValue));
